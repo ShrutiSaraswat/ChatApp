@@ -7,9 +7,25 @@ import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 
 import connectToDB from "./db/connectToDB.js";
+import cors from "cors";
+import bodyParser from "body-parser";
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "http://localhost:3002",
+  "http://localhost:3003",
+];
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+app.use(
+  cors({
+    credentials: true,
+    origin: allowedOrigins,
+  })
+);
 
 dotenv.config();
 

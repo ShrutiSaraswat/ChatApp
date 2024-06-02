@@ -6,6 +6,7 @@ export const sendMessage = async (req, res) => {
 
   try {
     const { message } = req.body;
+
     const { id: receiverId } = req.params; // or const id= req.params.id; // yeh humko uss url se hi mil rhi hai ( /api/messages/send/:id )
     // renamed this id as receiverId
     const senderId = req.user._id; // yeh humko protectRoute middleware se milegi
