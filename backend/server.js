@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import path from "path";
 
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
@@ -20,8 +19,6 @@ const allowedOrigins = [
 ];
 
 const PORT = process.env.PORT || 5000;
-
-const __dirname = path.resolve();
 
 app.use(
   cors({
@@ -42,25 +39,8 @@ app.use(cookieParser()); // to parse/access the incoming cookies from req.cookie
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
-// app.get("/", (req, res) => {
-//   // root route -> http://localhost:5000/
-//   res.send("hello world");
-// });
-
-app.use(express.static(path.join(__dirname, "/frontend/user-side/dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(
-    path.join(
-      __dirname,
-      "frontend",
-      "user-side",
-      "dist",
-      "src",
-      "app",
-      "layout.js"
-    )
-  );
+app.get("/", (req, res) => {
+  res.send("hello world");
 });
 
 server.listen(PORT, () => {
