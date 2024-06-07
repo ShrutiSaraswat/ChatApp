@@ -18,9 +18,10 @@ export const SocketContextProvider = ({ children }) => {
     if (authUser) {
       const prod = true;
 
-      const baseURL = prod
-        ? "https://chat-app-eight-umber.vercel.app/"
-        : "http://localhost:5000/";
+      // const baseURL = prod
+      //   ? "https://chat-app-eight-umber.vercel.app/"
+      //   : "http://localhost:5000/";
+      const baseURL = "https://chat-app-eight-umber.vercel.app/";
 
       const socket = io(baseURL, {
         query: {
