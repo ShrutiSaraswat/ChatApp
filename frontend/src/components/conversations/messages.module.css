@@ -1,0 +1,82 @@
+.messagesM {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.messages {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.ProfileLogo {
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+}
+
+.messagesSub {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  font-size: 8px;
+}
+
+.messagesData {
+  background: #4b0082;
+  padding: 12px 14px;
+  border-radius: 12px;
+  max-width: 330px;
+  font-size: 12px;
+}
+
+.messagesSubImg {
+  background: black;
+  padding: 10px;
+  border-radius: 10px;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.messagesSubImg img {
+  max-width: 240px;
+  max-height: 240px;
+  border-radius: 10px;
+  display: block;
+}
+
+.displayImage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9); /* Slight transparency for a better look */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+}
+
+.displayImage img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.displayImage .closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}

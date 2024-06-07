@@ -1,0 +1,86 @@
+.homeM {
+  height: 100vh;
+  background-image: url("../assets/login.webp");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.home {
+  border-radius: 20px;
+  background: #1717172e;
+  backdrop-filter: blur(20px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.homeTop {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  border-bottom: solid 1px rgb(99, 99, 99);
+}
+.homeTopL {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.ProfileLogo {
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+}
+.homeTopL {
+  font-size: 18px;
+  font-weight: 600;
+}
+.homeTopR {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
+}
+.logoutPopup {
+  position: absolute;
+  top: 5rem;
+  padding: 2rem;
+  border: solid 1px gray;
+  border-radius: 15px;
+  background: rgba(0, 0, 52, 0.858);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 300px;
+  right: 1rem;
+}
+.logoutPopup div {
+  font-size: 18px;
+}
+.logoutPopup button {
+  border: none;
+  outline: none;
+  background: blue;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+}
+.homeBottom {
+  display: flex;
+  flex: 7;
+  overflow: auto;
+}
+.homeSidebar {
+  flex: 2;
+}
+.homeCoversation {
+  flex: 5;
+  overflow: auto;
+}

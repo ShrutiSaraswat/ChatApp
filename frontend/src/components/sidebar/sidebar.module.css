@@ -1,0 +1,45 @@
+.sidebarM {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  backdrop-filter: blur(100px);
+}
+.sidebarH {
+  font-size: 24px;
+  font-weight: 600;
+  padding: 1rem;
+}
+.sidebarMi {
+  margin: 0.5rem 1rem;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+.sidebarMi input {
+  padding: 3px 12px;
+  width: 80%;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+.sidebarB {
+  padding: 1rem;
+  /* overflow: hidden; */
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sidebarB::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.sidebarB {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -1,0 +1,143 @@
+.loginM {
+  /* height: 120vh; */
+  background-image: url("../../components/assets/login.webp");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 1rem 0 3rem 0;
+}
+.login {
+  padding: 3rem;
+  border-radius: 20px;
+  background: #1717172e;
+  backdrop-filter: blur(20px);
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  width: 400px;
+}
+.loginH {
+  font-size: 26px;
+  font-weight: 600;
+  text-shadow: 0 1px 5px black;
+}
+.loginSub {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-shadow: 0 1px 1px black;
+}
+.loginSubH {
+  font-size: 17px;
+}
+.loginSub input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+.loginButton {
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  background: blue;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.checkbox {
+  display: flex;
+  gap: 3rem;
+}
+.checkboxS {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.radio {
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 3rem;
+  margin: 10px 0;
+}
+
+.radioS {
+  display: flex;
+  align-items: center;
+  /* gap: 10px; */
+}
+
+.radioS input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+.radioS label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding-left: 25px; /* Make space for the custom radio button */
+}
+
+.radioS label:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Make it a circle */
+  position: absolute;
+  left: 0;
+  background-color: #f3f3f3; /* Default color */
+  transition: background-color 0.3s, border 0.3s;
+
+  /* border: solid 2px blue; */
+}
+
+.radioS input[type="radio"]:checked + label:before {
+  background-color: #4cb14f; /* Color when checked */
+  border: solid 1.5px rgb(0, 242, 255);
+}
+
+.radioS input[type="radio"]:checked + label[data-gender="female"]:before {
+  background-color: #e91e63; /* Different color for female */
+  border: solid 1.5px rgb(0, 242, 255);
+}
+.errorMsg {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.599);
+}
+.errMsg {
+  padding: 2rem 3rem;
+  color: black;
+  background: white;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-radius: 10px;
+}
+.errMsg div {
+  font-size: 18px;
+  font-weight: 600;
+}
+.errMsg button {
+  padding: 10px;
+  background: rgb(0, 0, 241);
+  color: white;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}

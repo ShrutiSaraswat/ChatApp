@@ -1,0 +1,181 @@
+.conversations {
+  display: flex;
+  flex-direction: column;
+}
+.conversationsT {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem;
+  align-items: center;
+}
+.conversationsTL {
+  font-size: 18px;
+  font-weight: 600;
+}
+.conversationsTR {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 18px;
+}
+.ProfileLogo {
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+}
+.conversationsMi {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 66vh;
+  padding-bottom: 1px; /* Add some padding to ensure scroll to bottom */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.conversationsMi::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.conversationsMi {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.conversationsMiS {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 66vh;
+}
+.startConv {
+  text-align: center;
+  font-size: 22px;
+  margin-top: 5rem;
+  font-weight: 600;
+  width: 400px;
+}
+.conversationsBM {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 0 10px;
+}
+.conversationsB {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
+  padding: 5px;
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+}
+.conversationsB input {
+  padding: 8px 12px;
+  width: 100%;
+  border-radius: 8px;
+  outline: none;
+  border: 1px solid #b5b5b5;
+  transition: 0.5s;
+  font-size: 15px;
+}
+.conversationsB input:focus {
+  border-color: #000;
+}
+.chatNotOpenM {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+.chatNotOpen {
+  text-align: center;
+  width: 90%;
+  margin-top: 5rem;
+}
+.chatNotOpenS {
+  font-size: 22px;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+.chatNotOpenD {
+  font-size: 16px;
+  margin-top: 3rem;
+  background: white;
+  color: black;
+  border-radius: 15px;
+  padding: 2rem;
+}
+.emojiButton {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 3px;
+  border-radius: 50%;
+  background: #e0e0e0;
+}
+
+.emojiPickerWrapper {
+  position: absolute;
+  bottom: 70px;
+  margin-left: 0px;
+  z-index: 1;
+}
+
+/* Add this CSS for the image upload button */
+.imageUploadLabel {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.8s;
+  display: flex;
+}
+
+/* Add this CSS for the image preview */
+.imagePreview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+  position: absolute;
+  bottom: 5rem;
+  background: #00000059;
+  padding: 20px 10px;
+  border-radius: 10px;
+  margin-left: 0.5rem;
+  backdrop-filter: blur(5px);
+  height: 300px;
+  width: 300px;
+  border: solid 6px rgba(0, 0, 0, 0.548);
+}
+.imagePreviewS {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  border-radius: 10px;
+  /* padding: 10px; */
+}
+.imagePreview img {
+  max-width: 250px;
+  max-height: 250px;
+  border-radius: 10px;
+}
+
+.imagePreview button {
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}

@@ -1,0 +1,85 @@
+.loginM {
+  height: 100vh;
+  background-image: url("../../components/assets/login.webp");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.login {
+  padding: 3rem;
+  border-radius: 20px;
+  background: #1717172e;
+  backdrop-filter: blur(20px);
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  width: 400px;
+}
+.loginH {
+  font-size: 26px;
+  font-weight: 600;
+  text-shadow: 0 1px 5px black;
+}
+.loginSub {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-shadow: 0 1px 1px black;
+}
+.loginSubH {
+  font-size: 17px;
+}
+.loginSub input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+.loginButton {
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  background: blue;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.errorMsg {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.599);
+}
+.errMsg {
+  padding: 2rem 3rem;
+  color: black;
+  background: white;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-radius: 10px;
+}
+.errMsg div {
+  font-size: 18px;
+  font-weight: 600;
+}
+.errMsg button {
+  padding: 10px;
+  background: rgb(0, 0, 241);
+  color: white;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
