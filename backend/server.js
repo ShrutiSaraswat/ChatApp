@@ -9,6 +9,7 @@ import userRoutes from "./routes/user.routes.js";
 import connectToDB from "./db/connectToDB.js";
 import cors from "cors";
 import bodyParser from "body-parser";
+import { app, server } from "./socket/socket.js";
 
 const allowedOrigins = [
   "http://localhost:3000",
@@ -17,7 +18,6 @@ const allowedOrigins = [
   "http://localhost:3003",
 ];
 
-const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(
@@ -26,6 +26,10 @@ app.use(
     origin: allowedOrigins,
   })
 );
+
+// Increase the payload limit, for managing the file uplaod limit, bcz sometimes error was coming in the console, that payloadSizeTooLarge, when images were uploaded
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 dotenv.config();
 
@@ -40,7 +44,7 @@ app.use("/api/users", userRoutes);
 //   res.send("hello world");
 // });
 
-app.listen(5000, () => {
+server.listen(PORT, () => {
   connectToDB();
   console.log(`Server running on Port ${PORT}`);
 });
