@@ -16,6 +16,7 @@ const allowedOrigins = [
   "http://localhost:3001",
   "http://localhost:3002",
   "http://localhost:3003",
+  "https://chat-app-eight-umber.vercel.app/login",
 ];
 
 const PORT = process.env.PORT || 5000;
