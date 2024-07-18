@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const prod = true;
+const prod = false;
 
-// const baseURL = prod
-//   ? "https://chat-app-eight-umber.vercel.app/"
-//   : "http://localhost:5000/";
+const baseURL = prod
+  ? "https://chat-app-eight-umber.vercel.app/"
+  : "http://localhost:5000/";
 
-const baseURL = "https://chat-app-eight-umber.vercel.app/";
+// const baseURL = "https://chat-app-eight-umber.vercel.app/";
 
 const axiosInstance = axios.create({
   baseURL,

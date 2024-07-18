@@ -80,3 +80,20 @@
   color: white;
   cursor: pointer;
 }
+
+.bottomInfo {
+  display: flex;
+  align-items: center;
+}
+
+.listen {
+  color: white;
+  background: none;
+  border-radius: 30px;
+  border: solid 1.5px white;
+  outline: none;
+  padding: 3px 5px;
+  font-size: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}

@@ -14,6 +14,16 @@ const Messages = (props) => {
   const [imgOpen, setImgOpen] = useState(false);
   const isImage = props.message.startsWith("data:image");
 
+  const handleSpeech = () => {
+    const speech = new SpeechSynthesisUtterance();
+    speech.text = props.message;
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+
+    window.speechSynthesis.speak(speech);
+  };
+
   return (
     <div className={styles.messageMain}>
       <div className={styles.messagesM}>
@@ -45,7 +55,23 @@ const Messages = (props) => {
               ) : (
                 <div className={styles.messagesData}>{props.message}</div>
               )}
-              {props.time}, {props.date}
+              <div className={styles.bottomInfo}>
+                {!isImage ? (
+                  <button onClick={handleSpeech} className={styles.listen}>
+                    <span
+                      role="img"
+                      aria-label="Speaker"
+                      style={{ marginRight: "5px" }}
+                    >
+                      🔊
+                    </span>
+                    Listen
+                  </button>
+                ) : (
+                  ""
+                )}
+                {props.time}, {props.date}
+              </div>
             </div>
             <Image
               src={authUser.profilePic}
@@ -101,7 +127,23 @@ const Messages = (props) => {
                   {props.message}
                 </div>
               )}
-              {props.time}, {props.date}
+              <div className={styles.bottomInfo}>
+                {!isImage ? (
+                  <button onClick={handleSpeech} className={styles.listen}>
+                    <span
+                      role="img"
+                      aria-label="Speaker"
+                      style={{ marginRight: "5px" }}
+                    >
+                      🔊
+                    </span>
+                    Listen
+                  </button>
+                ) : (
+                  ""
+                )}
+                {props.time}, {props.date}
+              </div>
             </div>
           </div>
         )}

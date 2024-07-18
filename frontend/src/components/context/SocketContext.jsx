@@ -16,12 +16,12 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (authUser) {
-      const prod = true;
+      const prod = false;
 
-      // const baseURL = prod
-      //   ? "https://chat-app-eight-umber.vercel.app/"
-      //   : "http://localhost:5000/";
-      const baseURL = "https://chat-app-eight-umber.vercel.app/";
+      const baseURL = prod
+        ? "https://chat-app-eight-umber.vercel.app/"
+        : "http://localhost:5000/";
+      // const baseURL = "https://chat-app-eight-umber.vercel.app/";
 
       const socket = io(baseURL, {
         query: {
