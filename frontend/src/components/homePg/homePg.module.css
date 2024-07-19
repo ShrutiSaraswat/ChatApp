@@ -44,6 +44,13 @@
   align-items: center;
   cursor: pointer;
 }
+.menuIcon {
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
 .logoutPopup {
   position: absolute;
   top: 5rem;
@@ -80,7 +87,12 @@
 .homeSidebar {
   flex: 2;
 }
-.homeCoversation {
+.homeConversation {
   flex: 5;
   overflow: auto;
+}
+.homeConversationFull {
+  flex: 1;
+  overflow: auto;
+  width: 100%;
 }

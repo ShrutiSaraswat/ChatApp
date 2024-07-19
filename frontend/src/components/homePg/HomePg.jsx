@@ -4,8 +4,7 @@ import styles from "./homePg.module.css";
 import Sidebar from "../sidebar/Sidebar";
 import Conversations from "../conversations/Conversations";
 import Image from "next/image";
-import avatar from "../assets/avatar.jpg";
-import { RiLogoutBoxRLine } from "react-icons/ri";
+import { RiLogoutBoxRLine, RiMenuLine } from "react-icons/ri";
 import axiosInstance from "../../app/Axios";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../context/AuthContext";
@@ -17,6 +16,7 @@ const HomePg = () => {
   const { push } = useRouter();
 
   const [logout, setLogout] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const logoutFunc = () => {
     axiosInstance
@@ -52,15 +52,18 @@ const HomePg = () => {
           </div>
           <div className={styles.homeTopR}>
             <div
-              onClick={() => {
-                setLogout(true);
-              }}
+              className={styles.menuIcon}
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            >
+              <RiMenuLine />
+            </div>
+            <div
+              onClick={() => setLogout(true)}
               style={{ display: "flex", alignItems: "center", gap: "12px" }}
             >
               Logout <RiLogoutBoxRLine style={{ fontSize: "24px" }} />
             </div>
-
-            {logout ? (
+            {logout && (
               <div className={styles.logoutPopup}>
                 <div>Are you sure you want to Logout?</div>
                 <div
@@ -71,35 +74,33 @@ const HomePg = () => {
                     width: "100%",
                   }}
                 >
+                  <button onClick={() => setLogout(false)}>Cancel</button>
                   <button
-                    onClick={() => {
-                      setLogout(false);
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => {
-                      logoutFunc();
-                    }}
+                    onClick={logoutFunc}
                     style={{ background: "rgb(231, 0, 0)" }}
                   >
                     Logout
                   </button>
                 </div>
               </div>
-            ) : (
-              <></>
             )}
           </div>
         </div>
 
         <div className={styles.homeBottom}>
-          <div className={styles.homeSidebar}>
-            <Sidebar />
-          </div>
+          {isSidebarOpen && (
+            <div className={styles.homeSidebar}>
+              <Sidebar />
+            </div>
+          )}
           <hr />
-          <div className={styles.homeCoversation}>
+          <div
+            className={
+              isSidebarOpen
+                ? styles.homeConversation
+                : styles.homeConversationFull
+            }
+          >
             <Conversations />
           </div>
         </div>
