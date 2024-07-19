@@ -179,3 +179,37 @@
   font-size: 16px;
   width: 100%;
 }
+
+/**/
+.soundWaveDisplay {
+  display: none;
+}
+.audioPreview {
+  position: absolute;
+  bottom: 5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 10px;
+}
+.recordingButtons {
+  display: flex;
+  gap: 10px;
+}
+.recordingButton {
+  padding: 5px;
+  border-radius: 50%;
+  outline: none;
+  border: solid 1px gray;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+}
+
+.sendBtn button {
+  background: none;
+  outline: none;
+  border: none;
+  color: white;
+}

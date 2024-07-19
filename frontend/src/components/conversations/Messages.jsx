@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./messages.module.css";
 import Image from "next/image";
 import { useAuthContext } from "../context/AuthContext";
@@ -12,7 +12,11 @@ const Messages = (props) => {
   const { selectedConversation } = useConversation();
 
   const [imgOpen, setImgOpen] = useState(false);
-  const isImage = props.message.startsWith("data:image");
+  const isImage = props.message.startsWith("data:image"); // Check if message is an image URL
+  const isAudioBase64 = props.message.startsWith("data:audio"); // Check if message is a base64 audio
+
+  const [speech, setspeech] = useState(false);
+  const [pauseSpeech, setPauseSpeech] = useState(false);
 
   const handleSpeech = () => {
     const speech = new SpeechSynthesisUtterance();
@@ -22,15 +26,34 @@ const Messages = (props) => {
     speech.pitch = 1;
 
     window.speechSynthesis.speak(speech);
+    setspeech(true);
   };
+  const [audioURL, setAudioURL] = useState(null);
+
+  useEffect(() => {
+    if (isAudioBase64) {
+      // Convert base64 to Blob and then to a URL
+      const byteCharacters = atob(props.message.split(",")[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: "audio/webm" }); // Ensure the correct MIME type is used
+      const url = URL.createObjectURL(blob);
+      setAudioURL(url);
+    }
+  }, [props.message, isAudioBase64]);
 
   return (
     <div className={styles.messageMain}>
       <div className={styles.messagesM}>
         {selectedConversation._id === props.receiverId ? (
+          // Render sender's messages on the right
           <div className={styles.messages}>
             <div className={styles.messagesSub}>
               {isImage ? (
+                // Display image message
                 <div className={styles.messagesSubImgMain}>
                   <div
                     className={styles.messagesSubImg}
@@ -41,6 +64,7 @@ const Messages = (props) => {
                     <img src={props.message} alt="message" />
                   </div>
                   {imgOpen && (
+                    // Show enlarged image on click
                     <div className={styles.displayImage}>
                       <IoMdClose
                         className={styles.closeButton}
@@ -52,11 +76,18 @@ const Messages = (props) => {
                     </div>
                   )}
                 </div>
+              ) : isAudioBase64 ? (
+                // Display audio message
+                <div className={styles.audioContainer}>
+                  <audio controls src={audioURL} /> {/* Audio player */}
+                </div>
               ) : (
+                // Display text message
                 <div className={styles.messagesData}>{props.message}</div>
               )}
               <div className={styles.bottomInfo}>
-                {!isImage ? (
+                {!isImage && !isAudioBase64 ? (
+                  // Button to read out loud text messages
                   <button onClick={handleSpeech} className={styles.listen}>
                     <span
                       role="img"
@@ -65,12 +96,12 @@ const Messages = (props) => {
                     >
                       🔊
                     </span>
-                    Listen
+                    {speech ? "Pause" : "Listen"}
                   </button>
                 ) : (
                   ""
                 )}
-                {props.time}, {props.date}
+                {props.time}, {props.date} {/* Message timestamp */}
               </div>
             </div>
             <Image
@@ -82,6 +113,7 @@ const Messages = (props) => {
             />
           </div>
         ) : (
+          // Render recipient's messages on the left
           <div
             className={styles.messages}
             style={{ justifyContent: "flex-start" }}
@@ -98,6 +130,7 @@ const Messages = (props) => {
               style={{ alignItems: "flex-start" }}
             >
               {isImage ? (
+                // Display image message
                 <div className={styles.messagesSubImgMain}>
                   <div
                     className={styles.messagesSubImg}
@@ -108,6 +141,7 @@ const Messages = (props) => {
                     <img src={props.message} alt="message" />
                   </div>
                   {imgOpen && (
+                    // Show enlarged image on click
                     <div className={styles.displayImage}>
                       <IoMdClose
                         className={styles.closeButton}
@@ -119,7 +153,13 @@ const Messages = (props) => {
                     </div>
                   )}
                 </div>
+              ) : isAudioBase64 ? (
+                // Display audio message
+                <div className={styles.audioContainer}>
+                  <audio controls src={audioURL} /> {/* Audio player */}
+                </div>
               ) : (
+                // Display text message with different styling
                 <div
                   className={styles.messagesData}
                   style={{ background: "#7839b7" }}
@@ -128,7 +168,8 @@ const Messages = (props) => {
                 </div>
               )}
               <div className={styles.bottomInfo}>
-                {!isImage ? (
+                {!isImage && !isAudioBase64 ? (
+                  // Button to read out loud text messages
                   <button onClick={handleSpeech} className={styles.listen}>
                     <span
                       role="img"
@@ -142,7 +183,7 @@ const Messages = (props) => {
                 ) : (
                   ""
                 )}
-                {props.time}, {props.date}
+                {props.time}, {props.date} {/* Message timestamp */}
               </div>
             </div>
           </div>

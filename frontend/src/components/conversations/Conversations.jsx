@@ -1,4 +1,3 @@
-"use client";
 import { React, useState, useEffect, useRef } from "react";
 import styles from "./conversations.module.css";
 import Image from "next/image";
@@ -10,7 +9,9 @@ import { useConversation } from "../context/ConversationContext";
 import axiosInstance from "../../app/Axios";
 import EmojiPicker from "emoji-picker-react";
 import imageCompression from "browser-image-compression";
-import { FaImage } from "react-icons/fa6";
+import { FaImage, FaMicrophone, FaStop } from "react-icons/fa6";
+import { ReactMic } from "react-mic";
+import ReactLoading from "react-loading";
 
 const Conversations = () => {
   const { authUser } = useAuthContext();
@@ -23,22 +24,29 @@ const Conversations = () => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false); // State to toggle emoji picker
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [recording, setRecording] = useState(false);
+  const [recordedBlob, setRecordedBlob] = useState(null);
+  const [audioURL, setAudioURL] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!input.trim() && !selectedImage) return;
+    if (!input.trim() && !selectedImage && !audioURL) return;
 
     let messageContent = input;
 
     if (selectedImage) {
       messageContent = imagePreview;
+    } else if (audioURL) {
+      // Convert audio blob to base64
+      const base64Audio = await convertBlobToBase64(recordedBlob.blob);
+      messageContent = base64Audio;
     }
 
     axiosInstance
       .post(`/api/messages/send/${selectedConversation._id}`, {
         message: messageContent,
       })
-      .then(async (res) => {
+      .then((res) => {
         setMessages([...messages, res.data]);
       })
       .catch((error) => {
@@ -48,6 +56,18 @@ const Conversations = () => {
     setInput("");
     setSelectedImage(null);
     setImagePreview(null);
+    setAudioURL(null);
+  };
+
+  const convertBlobToBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
   };
 
   const handleImageUpload = async (e) => {
@@ -133,6 +153,24 @@ const Conversations = () => {
     return { time, formattedDate };
   };
 
+  const startRecording = () => {
+    setRecording(true);
+  };
+
+  const stopRecording = () => {
+    setRecording(false);
+  };
+
+  const onData = (recordedData) => {
+    console.log("recordedData", recordedData);
+  };
+
+  const onStop = (recordedBlob) => {
+    console.log("recordedBlob", recordedBlob);
+    setRecordedBlob(recordedBlob);
+    setAudioURL(URL.createObjectURL(recordedBlob.blob));
+  };
+
   return (
     <div>
       {selectedConversation?.isItSelected ? (
@@ -177,6 +215,25 @@ const Conversations = () => {
 
           <hr />
           <form onSubmit={handleSubmit}>
+            {audioURL && (
+              <div className={styles.audioPreview}>
+                <audio controls src={audioURL} />
+                <button
+                  onClick={() => setAudioURL(null)}
+                  style={{
+                    background: "red",
+                    outline: "none",
+                    border: "none",
+                    color: "white",
+                    padding: "5px 12px",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Remove
+                </button>
+              </div>
+            )}
             <div className={styles.conversationsBM}>
               <div className={styles.conversationsB}>
                 <button
@@ -194,14 +251,46 @@ const Conversations = () => {
                     <EmojiPicker onEmojiClick={handleEmojiClick} />
                   </div>
                 )}
-                <input
-                  type="text"
-                  placeholder="Type message here..."
-                  value={input}
-                  onChange={(e) => {
-                    setInput(e.target.value);
-                  }}
-                />
+                {recording ? (
+                  <div
+                    style={{
+                      color: "red",
+                      display: "flex",
+                      gap: "10px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>Recording</div>
+                    <div>
+                      <ReactLoading
+                        type="bars"
+                        color="red"
+                        height={35}
+                        width={35}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <input
+                    type="text"
+                    placeholder="Type message here..."
+                    value={input}
+                    onChange={(e) => {
+                      setInput(e.target.value);
+                    }}
+                  />
+                )}
+                {!recording ? (
+                  <label
+                    htmlFor="image-upload"
+                    className={styles.imageUploadLabel}
+                  >
+                    <FaImage style={{ color: "black" }} />
+                  </label>
+                ) : (
+                  <></>
+                )}
+
                 <input
                   type="file"
                   id="image-upload"
@@ -209,12 +298,7 @@ const Conversations = () => {
                   accept="image/*"
                   onChange={handleImageUpload}
                 />
-                <label
-                  htmlFor="image-upload"
-                  className={styles.imageUploadLabel}
-                >
-                  <FaImage style={{ color: "black" }} />
-                </label>
+
                 {imagePreview && (
                   <div className={styles.imagePreview}>
                     <div className={styles.imagePreviewS}>
@@ -231,19 +315,49 @@ const Conversations = () => {
                     </button>
                   </div>
                 )}
+                <div className={styles.recordingButtons}>
+                  <button
+                    type="button"
+                    onClick={startRecording}
+                    disabled={recording}
+                    className={styles.recordingButton}
+                  >
+                    <FaMicrophone color={!recording ? "blue" : "gray"} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={stopRecording}
+                    disabled={!recording}
+                    className={styles.recordingButton}
+                  >
+                    <FaStop color={recording ? "red" : "gray"} />
+                  </button>
+                </div>
               </div>
-              <IoSend
-                style={{
-                  cursor: "pointer",
-                  fontSize: "25px",
-                  padding: "10px",
-                  background: "blue",
-                  borderRadius: "50%",
-                }}
-                onClick={handleSubmit}
-              />
+              <div className={styles.sendBtn}>
+                <button type="submit">
+                  <IoSend
+                    style={{
+                      cursor: "pointer",
+                      fontSize: "25px",
+                      padding: "10px",
+                      background: "blue",
+                      borderRadius: "50%",
+                    }}
+                    onClick={handleSubmit}
+                  />
+                </button>
+              </div>
             </div>
           </form>
+          <ReactMic
+            record={recording}
+            onStop={onStop}
+            onData={onData}
+            // strokeColor="#000000"
+            // backgroundColor="#FF4081"
+            className={styles.soundWaveDisplay}
+          />
         </div>
       ) : (
         <div className={styles.chatNotOpenM}>

@@ -13,8 +13,8 @@
 }
 
 .ProfileLogo {
-  height: 42px;
-  width: 42px;
+  height: 35px;
+  width: 35px;
   border-radius: 50%;
 }
 
@@ -28,9 +28,9 @@
 
 .messagesData {
   background: #4b0082;
-  padding: 12px 14px;
+  padding: 8px 14px;
   border-radius: 12px;
-  max-width: 330px;
+  max-width: 430px;
   font-size: 12px;
 }
 
